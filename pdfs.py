@@ -34,7 +34,7 @@ This crap code:
 # from functools import lru_cache
 # @lru_cache(maxsize=None)
 def get_items():
-    result = subprocess.run(['../bin/zotero-cli.js', '--config', "config.toml", "items"], stdout=subprocess.PIPE)
+    result = subprocess.run(['./bin/zotero-cli.js', '--config', "config.toml", "items"], stdout=subprocess.PIPE)
     return result.stdout
 
 items_in_string = get_items()
@@ -53,7 +53,7 @@ for item in items_in_json:
     if "title" in item["data"]:
         title = item["data"]["title"]
         print(key, title)
-        result = subprocess.run(['../bin/zotero-cli.js', '--config', "config.toml", "attachment", "--key", key, "--save", title], stdout=subprocess.PIPE)
+        result = subprocess.run(['./bin/zotero-cli.js', '--config', "config.toml", "attachment", "--key", key, "--save", title], stdout=subprocess.PIPE)
         
     else:
         item_missing = f"Item {key} missing title"
