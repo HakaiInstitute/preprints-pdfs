@@ -1,0 +1,46 @@
+import subprocess
+import json
+from datetime import datetime
+
+from pyzotero import zotero
+
+COLLECTION_KEY = "FMW579SC"
+LIBRARY_ID = "5302835"
+LIBRARY_TYPE = "group"
+USER_KEY = "ecy68xmRI6hnkvF9dyT7NcOI"
+
+
+""" 
+This crap code: 
+* calls a Zotero API CLI in NodeJS to list all the bibliography items in a Hakai Group Library Folder called _API_ 
+* Saves the list of items to items<timestamp>.json and then iterates through each one to save each items attachment PDF to disk and name it with the item TITLE
+* 
+"""
+
+
+# from functools import lru_cache
+# @lru_cache(maxsize=None)
+def get_items():
+    result = subprocess.run(['./bin/zotero-cli.js', '--config', "config.toml", "items"], stdout=subprocess.PIPE)
+    return result.stdout
+
+items_in_string = get_items()
+items_in_json = json.loads(items_in_string)
+
+timestamp = datetime.now().isoformat()
+
+with open('items' + timestamp +'.json', 'w', encoding='utf-8') as f:
+    json.dump(items_in_json, f, ensure_ascii=False, indent=4)
+
+for item in items_in_json:
+    key = item["key"]
+    if "title" in item["data"]:
+        title = item["data"]["title"]
+        print(key, title)
+        result = subprocess.run(['./bin/zotero-cli.js', '--config', "config.toml", "attachment", "--key", key, "--save", title], stdout=subprocess.PIPE)
+        
+    else:
+        log = f"Item {key} missing title"
+        print(log)
+    
+
