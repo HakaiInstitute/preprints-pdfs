@@ -3,14 +3,14 @@ import json
 from datetime import datetime
 import logging
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[
-        logging.FileHandler("debug.log"),
-        logging.StreamHandler()
-    ]
-)
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="%(asctime)s [%(levelname)s] %(message)s",
+#     handlers=[
+#         logging.FileHandler("debug.log"),
+#         logging.StreamHandler()
+#     ]
+# )
 
 # from loguru import logger
 # logger.add("file_{time}.log")
@@ -40,9 +40,8 @@ def get_items():
 items_in_string = get_items()
 items_in_json = json.loads(items_in_string)
 
-timestamp = datetime.now().isoformat()
-
-logger.info(item_in_json)
+# timestamp = datetime.now().isoformat()
+# logger.info(item_in_json)
 
 # dump items to file
 # with open('items' + timestamp +'.json', 'w', encoding='utf-8') as f:
@@ -57,6 +56,6 @@ for item in items_in_json:
         
     else:
         item_missing = f"Item {key} missing title"
-        logger.info(item_missing)
+        print(item_missing)
     
 
