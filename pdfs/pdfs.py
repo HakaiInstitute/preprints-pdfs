@@ -15,7 +15,7 @@ logging.basicConfig(
 # from loguru import logger
 # logger.add("file_{time}.log")
 
-from pyzotero import zotero
+# from pyzotero import zotero
 
 COLLECTION_KEY = "FMW579SC"
 LIBRARY_ID = "5302835"
@@ -42,8 +42,11 @@ items_in_json = json.loads(items_in_string)
 
 timestamp = datetime.now().isoformat()
 
-with open('items' + timestamp +'.json', 'w', encoding='utf-8') as f:
-    json.dump(items_in_json, f, ensure_ascii=False, indent=4)
+logger.info(item_in_json)
+
+# dump items to file
+# with open('items' + timestamp +'.json', 'w', encoding='utf-8') as f:
+#     json.dump(items_in_json, f, ensure_ascii=False, indent=4)
 
 for item in items_in_json:
     key = item["key"]
@@ -54,6 +57,6 @@ for item in items_in_json:
         
     else:
         item_missing = f"Item {key} missing title"
-        logger.debug(item_missing)
+        logger.info(item_missing)
     
 
