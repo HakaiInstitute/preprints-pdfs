@@ -1,6 +1,19 @@
 import subprocess
 import json
 from datetime import datetime
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("debug.log"),
+        logging.StreamHandler()
+    ]
+)
+
+# from loguru import logger
+# logger.add("file_{time}.log")
 
 from pyzotero import zotero
 
@@ -40,7 +53,7 @@ for item in items_in_json:
         result = subprocess.run(['./bin/zotero-cli.js', '--config', "config.toml", "attachment", "--key", key, "--save", title], stdout=subprocess.PIPE)
         
     else:
-        log = f"Item {key} missing title"
-        print(log)
+        item_missing = f"Item {key} missing title"
+        logger.debug(item_missing)
     
 
