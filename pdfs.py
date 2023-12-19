@@ -20,7 +20,8 @@ import logging
 COLLECTION_KEY = "FMW579SC"
 LIBRARY_ID = "5302835"
 LIBRARY_TYPE = "group"
-USER_KEY = "ecy68xmRI6hnkvF9dyT7NcOI"
+USER_KEY = "PUHzzXnkKJieX9ugF7BbH2cf"
+# this is a READONLY KEY and these PDFS are on github so...
 
 
 """ 
